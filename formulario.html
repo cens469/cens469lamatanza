@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Formulario CENS</title>
+</head>
+<body>
+    <h1>Editar contenido CENS</h1>
+    <form action="guardar.php" method="POST">
+        <label>Inicio:</label><br>
+        <textarea name="inicio" rows="3" cols="60">Texto de bienvenida del CENS...</textarea><br><br>
+
+        <label>Requisitos:</label><br>
+        <textarea name="requisitos" rows="3" cols="60"><li>Documento</li></textarea><br><br>
+
+        <label>Orientaciones:</label><br>
+        <textarea name="orientaciones" rows="3" cols="60"><h3>Orientaciones</h3><p>Contenido aquí</p></textarea><br><br>
+
+        <label>Ubicación:</label><br>
+        <textarea name="ubicacion" rows="3" cols="60"><p>Dirección</p></textarea><br><br>
+
+        <label>Equipo:</label><br>
+        <textarea name="equipo" rows="3" cols="60"><p>Directora</p></textarea><br><br>
+
+        <label>Preinscripción:</label><br>
+        <textarea name="preinscripcion" rows="3" cols="60">Texto de preinscripción</textarea><br><br>
+
+        <label>Facebook:</label><br>
+        <input type="text" name="facebook" value="https://facebook.com" size="60"><br><br>
+
+        <label>Instagram:</label><br>
+        <input type="text" name="instagram" value="https://instagram.com" size="60"><br><br>
+
+        <label>WhatsApp:</label><br>
+        <input type="text" name="whatsapp" value="1156952550" size="60"><br><br>
+
+        <button type="submit">Guardar contenido</button>
+    </form>
+</body>
+</html>
