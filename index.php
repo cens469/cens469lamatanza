@@ -1,71 +1,67 @@
 <?php
-$data = json_decode(file_get_contents('contenido.json'), true);
+session_start();
+$contenido = json_decode(file_get_contents("contenido.json"), true);
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>CENS 469</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>CENS N° 469</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-      <div class="logo-container">
-          <img src="img/logo.jpg" alt="Logo CENS 469" class="logo">
-          <h1>CENS N°469 LA MATANZA</h1>
-      </div>
-  </header>
+    <div class="container">
+        <img src="img/logo.jpg" alt="Logo CENS" class="logo">
+        <div class="inicio">
+            <?php echo $contenido['inicio']; ?>
+        </div>
 
-  <nav>
-      <a href="index.php">Inicio</a>
-      <a href="login.php">Administrador</a>
-  </nav>
+        <div class="accordion-container">
+            <?php
+            $secciones = [
+                'requisitos' => 'Requisitos',
+                'orientaciones' => 'Orientaciones',
+                'ubicacion' => 'Ubicación',
+                'equipo' => 'Equipo Directivo',
+                'preinscripcion' => 'Preinscripción',
+                'redes' => 'Redes Sociales'
+            ];
 
-  <main>
-      <section>
-          <h2>Inicio</h2>
-          <?= $data['inicio'] ?>
-      </section>
-      <section>
-          <h2>Requisitos</h2>
-          <?= $data['requisitos'] ?>
-      </section>
-      <section>
-          <h2>Orientaciones</h2>
-          <?= $data['orientaciones'] ?>
-      </section>
-      <section>
-          <h2>Ubicación</h2>
-          <?= $data['ubicacion'] ?>
-          <br>
-          <a href="https://www.google.com/maps/search/?api=1&query=BPE,+Cirilo+Correa+6899-6999,+B1764+Virrey+del+Pino,+Provincia+de+Buenos+Aires" target="_blank">
-              <img src="img/ubicacion.png" alt="Ubicación" class="icon">
-          </a>
-      </section>
-      <section>
-          <h2>Equipo Directivo</h2>
-          <?= $data['equipo'] ?>
-      </section>
-      <section>
-          <h2>Preinscripción</h2>
-          <?= $data['preinscripcion'] ?>
-      </section>
-      <section>
-          <h2>Redes Sociales</h2>
-          <a href="<?= $data['facebook'] ?>" target="_blank">
-              <img src="img/facebook.png" alt="Facebook" class="icon">
-          </a>
-          <a href="<?= $data['instagram'] ?>" target="_blank">
-              <img src="img/instagram.png" alt="Instagram" class="icon">
-          </a>
-          <a href="https://wa.me/549<?= $data['whatsapp'] ?>" target="_blank">
-              <img src="img/whatsapp.png" alt="WhatsApp" class="icon">
-          </a>
-      </section>
-  </main>
+            foreach ($secciones as $clave => $titulo) {
+                echo '<div class="accordion">';
+                echo "<button class='accordion-toggle'>{$titulo}</button>";
+                echo "<div class='accordion-content'>";
 
-  <footer>
-      <p>&copy; 2025 CENS 469</p>
-  </footer>
+                if ($clave === 'redes') {
+                    echo '<p>';
+                    echo '<a href="' . $contenido['facebook'] . '" target="_blank"><img src="img/facebook.png" class="icono"> Facebook</a><br>';
+                    echo '<a href="' . $contenido['instagram'] . '" target="_blank"><img src="img/instagram.png" class="icono"> Instagram</a><br>';
+                    echo '<a href="https://wa.me/54' . $contenido['whatsapp'] . '" target="_blank"><img src="img/whatsapp.png" class="icono"> WhatsApp</a>';
+                    echo '</p>';
+                } else {
+                    echo $contenido[$clave];
+                }
+
+                echo '</div></div>';
+            }
+            ?>
+        </div>
+
+        <div class="admin-link">
+            <a href="login.php">🛠 Ingreso administrativo</a>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.accordion-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                button.classList.toggle('active');
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
 </body>
 </html>
+
