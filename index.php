@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 $contenido = json_decode(file_get_contents("contenido.json"), true);
@@ -9,6 +10,37 @@ $contenido = json_decode(file_get_contents("contenido.json"), true);
     <meta charset="UTF-8">
     <title>CENS N° 469</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .icono-social {
+            width: 80px;
+            height: auto;
+            vertical-align: middle;
+            margin: 5px;
+            transition: transform 0.2s;
+        }
+
+        .icono-social:hover {
+            transform: scale(1.1);
+        }
+
+        .redes-contenedor {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .ubicacion-logo {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .ubicacion-logo img {
+            width: 80px;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -34,11 +66,18 @@ $contenido = json_decode(file_get_contents("contenido.json"), true);
                 echo "<div class='accordion-content'>";
 
                 if ($clave === 'redes') {
-                    echo '<p>';
-                    echo '<a href="' . $contenido['facebook'] . '" target="_blank"><img src="img/facebook.png" class="icono"> Facebook</a><br>';
-                    echo '<a href="' . $contenido['instagram'] . '" target="_blank"><img src="img/instagram.png" class="icono"> Instagram</a><br>';
-                    echo '<a href="https://wa.me/54' . $contenido['whatsapp'] . '" target="_blank"><img src="img/whatsapp.png" class="icono"> WhatsApp</a>';
-                    echo '</p>';
+                    echo '<div class="redes-contenedor">';
+                    echo '<a href="https://www.facebook.com/profile.php?id=61576758922489" target="_blank"><img src="img/facebook.png" class="icono-social" alt="Facebook"></a>';
+                    echo '<a href="https://www.instagram.com/cens_n469_la_matanza/" target="_blank"><img src="img/instagram.png" class="icono-social" alt="Instagram"></a>';
+                    echo '<a href="https://wa.me/541125203641" target="_blank"><img src="img/whatsapp.png" class="icono-social" alt="WhatsApp"></a>';
+                    echo '</div>';
+                } elseif ($clave === 'ubicacion') {
+                    echo $contenido[$clave];
+                    echo '<div class="ubicacion-logo">';
+                    echo '<a href="https://www.google.com/maps/place/BPE,+Cirilo+Correa+6899-6999,+B1764+Virrey+del+Pino,+Provincia+de+Buenos+Aires" target="_blank">';
+                    echo '<img src="img/ubicacion.png" alt="Ubicación">';
+                    echo '</a>';
+                    echo '</div>';
                 } else {
                     echo $contenido[$clave];
                 }
