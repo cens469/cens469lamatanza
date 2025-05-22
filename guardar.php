@@ -2,7 +2,7 @@
 session_start();
 
 // Verifica que el usuario esté autenticado
-if (!isset($_SESSION['administracion'])) {
+if (!isset($_SESSION['admin'])) {
     die("Acceso no autorizado.");
 }
 
