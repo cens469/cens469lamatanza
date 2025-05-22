@@ -73,7 +73,7 @@ $contenido = json_decode(file_get_contents("contenido.json"), true);
                 } elseif ($clave === 'ubicación') {
                     echo $contenido['ubicación'] ?? '<p>Ubicación no disponible.</p>';
                     echo '<div class="ubicacion-logo">';
-                    echo '<a href="https://www.google.com/maps/place/BPE,+Cirilo+Correa+6899-6999,+B1764+Virrey+del+Pino,+Provincia+de+Buenos+Aires" target="_blank">';
+                   echo '<a href="https://www.google.com/maps/place/Cirilo+Correa+6899,+B1764+Virrey+del+Pino,+Provincia+de+Buenos+Aires" target="_blank">';
                     echo '<img src="img/ubicacion.png" alt="Ubicación">';
                     echo '</a>';
                     echo '</div>';
