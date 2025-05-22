@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 $contenido = json_decode(file_get_contents("contenido.json"), true);
@@ -46,7 +45,7 @@ $contenido = json_decode(file_get_contents("contenido.json"), true);
     <div class="container">
         <img src="img/logo.jpg" alt="Logo CENS" class="logo">
         <div class="inicio">
-            <?php echo $contenido['inicio']; ?>
+            <?= $contenido['inicio'] ?? '<p>Contenido no disponible.</p>' ?>
         </div>
 
         <div class="accordion-container">
@@ -54,9 +53,9 @@ $contenido = json_decode(file_get_contents("contenido.json"), true);
             $secciones = [
                 'requisitos' => 'Requisitos',
                 'orientaciones' => 'Orientaciones',
-                'ubicacion' => 'Ubicación',
+                'ubicación' => 'Ubicación',
                 'equipo' => 'Equipo Directivo',
-                'preinscripcion' => 'Preinscripción',
+                'preinscripción' => 'Preinscripción',
                 'redes' => 'Redes Sociales'
             ];
 
@@ -71,15 +70,15 @@ $contenido = json_decode(file_get_contents("contenido.json"), true);
                     echo '<a href="https://www.instagram.com/cens_n469_la_matanza/" target="_blank"><img src="img/instagram.png" class="icono-social" alt="Instagram"></a>';
                     echo '<a href="https://wa.me/541125203641" target="_blank"><img src="img/whatsapp.png" class="icono-social" alt="WhatsApp"></a>';
                     echo '</div>';
-                } elseif ($clave === 'ubicacion') {
-                    echo $contenido[$clave];
+                } elseif ($clave === 'ubicación') {
+                    echo $contenido['ubicación'] ?? '<p>Ubicación no disponible.</p>';
                     echo '<div class="ubicacion-logo">';
                     echo '<a href="https://www.google.com/maps/place/BPE,+Cirilo+Correa+6899-6999,+B1764+Virrey+del+Pino,+Provincia+de+Buenos+Aires" target="_blank">';
                     echo '<img src="img/ubicacion.png" alt="Ubicación">';
                     echo '</a>';
                     echo '</div>';
                 } else {
-                    echo $contenido[$clave];
+                    echo $contenido[$clave] ?? "<p>Contenido no disponible.</p>";
                 }
 
                 echo '</div></div>';
