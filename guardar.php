@@ -8,17 +8,17 @@ if (!isset($_SESSION['admin'])) {
 
 // Solo acepta solicitudes POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Recibe los datos desde el formulario
+    // Recibe los datos desde el formulario, con verificación de existencia
     $datos = [
-        "inicio" => $_POST['inicio'],
-        "requisitos" => $_POST['requisitos'],
-        "orientaciones" => $_POST['orientaciones'],
-        "ubicación" => $_POST['ubicación'],
-        "equipo" => $_POST['equipo'],
-        "preinscripción" => $_POST['preinscripción'],
-        "Facebook" => $_POST['Facebook'],
-        "Instagram" => $_POST['Instagram'],
-        "WhatsApp" => $_POST['WhatsApp']
+        "inicio" => $_POST['inicio'] ?? '',
+        "requisitos" => $_POST['requisitos'] ?? '',
+        "orientaciones" => $_POST['orientaciones'] ?? '',
+        "ubicación" => $_POST['ubicación'] ?? '',
+        "equipo" => $_POST['equipo'] ?? '',
+        "preinscripción" => $_POST['preinscripción'] ?? '',
+        "Facebook" => $_POST['Facebook'] ?? '',
+        "Instagram" => $_POST['Instagram'] ?? '',
+        "WhatsApp" => $_POST['WhatsApp'] ?? ''
     ];
 
     // Guardar localmente en contenido.json
