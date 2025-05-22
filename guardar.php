@@ -70,7 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     curl_close($ch);
 
     if ($status === 200 || $status === 201) {
-        header("Location: administrador.php?guardado=ok");
+ header("Location: admin.php?guardado=ok");
+
         exit;
     } else {
         echo "Error al guardar en GitHub. Código: $status";
