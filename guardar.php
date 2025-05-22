@@ -1,21 +1,52 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin'])) {
-    die("Acceso no autorizado.");
-}
+// Guarda el contenido enviado desde admin.php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nuevoContenido = $_POST['contenido'];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Guardar en contenido.json localmente
+    file_put_contents("contenido.json", $nuevoContenido);
+
+    // 🔐 Token de GitHub (PEGA TU TOKEN ENTRE LAS COMILLAS)
+    $token = getenv("GITHUB_TOKEN");
+
+
+    // Datos del repositorio
+    $owner = "cens469";
+    $repo = "cens469lamatanza";
+    $path = "contenido.json";
+    $api_url = "https://api.github.com/repos/$owner/$repo/contents/$path";
+
+    // Leer el contenido actual del archivo
+    $contenidoCodificado = base64_encode($nuevoContenido);
+    $sha = json_decode(file_get_contents($api_url), true)['sha'];
+
+    // Datos para el commit
     $data = [
-        "inicio" => $_POST['inicio'],
-        "requisitos" => $_POST['requisitos'],
-        "orientaciones" => $_POST['orientaciones'],
-        "ubicacion" => $_POST['ubicacion'],
-        "equipo" => $_POST['equipo'],
-        "preinscripcion" => $_POST['preinscripcion'],
-        "facebook" => $_POST['facebook'],
-        "instagram" => $_POST['instagram'],
-        "whatsapp" => $_POST['whatsapp']
+        "message" => "Actualización desde el panel de administración",
+        "content" => $contenidoCodificado,
+        "sha" => $sha
     ];
-    file_put_contents('contenido.json', json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-    header('Location: admin.php');
+
+    $headers = [
+        "Authorization: token $token",
+        "User-Agent: PHP"
+    ];
+
+    // Inicializar cURL
+    $ch = curl_init($api_url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($status === 200 || $status === 201) {
+        echo "Contenido actualizado y subido a GitHub correctamente.";
+    } else {
+        echo "Error al subir a GitHub. Código HTTP: $status<br>";
+        echo "<pre>$response</pre>";
+    }
 }
+?>
