@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Verifica que el usuario esté autenticado
+// Verifica que el usuario esté autenticado correctamente
 if (!isset($_SESSION['admin'])) {
     die("Acceso no autorizado.");
 }
@@ -78,3 +78,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
